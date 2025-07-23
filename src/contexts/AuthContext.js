@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const loadUserFromToken = () => {
+  const loadUserFromToken = useCallback(() => {
     if (typeof window === 'undefined') return;
 
     const token = localStorage.getItem('token');
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       }
     }
     setLoading(false);
-  };
+  }, []);
 
   const handleLogin = (token, refreshToken) => {
     localStorage.setItem('token', token);
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     loadUserFromToken();
-  }, []);
+  }, [loadUserFromToken]);
 
   const value = {
     user,
