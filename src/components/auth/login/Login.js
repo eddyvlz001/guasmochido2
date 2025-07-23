@@ -34,12 +34,15 @@ const Login = () => {
     );
 
     if (validUser) {
-      // Crear un token mock para simular login exitoso
-      const mockToken = btoa(JSON.stringify({
+      // Crear un token mock para simular login exitoso (formato JWT)
+      const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+      const payload = btoa(JSON.stringify({
         username: usernameOrEmail.split('@')[0],
         email: usernameOrEmail,
-        exp: Date.now() + 3600000 // 1 hora
+        exp: Math.floor(Date.now() / 1000) + 3600 // 1 hora en segundos
       }));
+      const signature = btoa("mock-signature");
+      const mockToken = `${header}.${payload}.${signature}`;
       
       handleLogin(mockToken, 'mock-refresh-token', navigate);
     } else {
