@@ -111,12 +111,10 @@ const Login = () => {
               <button type="button" className="test-btn direct-login" onClick={async () => {
                 try {
                   console.log('🚀 LOGIN DIRECTO clicked!');
-                  const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
-                  console.log('🌐 Backend URL:', backendURL);
-                  console.log('📡 Making request to:', `${backendURL}/api/auth/login`);
+                  console.log('📡 Making request to: /.netlify/functions/login');
                   
-                  const response = await axios.post(`${backendURL}/api/auth/login`, {
-                    usernameOrEmail: 'admin@test.com',
+                  const response = await axios.post('/.netlify/functions/login', {
+                    email: 'admin@test.com',
                     password: 'admin123'
                   });
                   
@@ -125,7 +123,7 @@ const Login = () => {
                 } catch (err) {
                   console.error('❌ Direct login error:', err);
                   console.error('❌ Error details:', err.response?.data);
-                  setErrorMessage('Error en login directo: ' + (err.response?.data?.message || err.message));
+                  setErrorMessage('Error en login directo: ' + (err.response?.data?.error || err.message));
                 }
               }}>
                 🚀 LOGIN DIRECTO
