@@ -29,7 +29,7 @@ const ControlPanel = () => {
   const [peakPower, setPeakPower] = useState(0);
   const [sessionDuration, setSessionDuration] = useState('00:00:00');
   
-  const API_URL = 'http://localhost:3000/esp32-data';
+  const API_URL = 'http://localhost:3001/api/esp32-data';
 
   const checkInitialStatus = useCallback(async (speakerIdParam) => {
     setIsLoading(true);
