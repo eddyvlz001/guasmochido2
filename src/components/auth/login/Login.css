@@ -237,6 +237,50 @@
   box-shadow: none;
 }
 
+.testing-panel {
+  background-color: rgba(255, 193, 7, 0.1);
+  border: 2px solid #ffc107;
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.testing-panel h4 {
+  margin: 0 0 0.75rem 0;
+  color: #856404;
+  font-size: 1rem;
+}
+
+.test-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.test-btn {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.test-btn:hover {
+  background-color: #e0a800;
+  transform: scale(1.05);
+}
+
+.debug-info {
+  font-size: 0.7rem;
+  color: #6c757d;
+  opacity: 0.8;
+}
+
 /* Responsive design */
 @media (min-width: 768px) {
   .login-container {
