@@ -94,7 +94,9 @@ const Login = () => {
 
           <div className="forgot">Forget password?</div>
 
-          <button className="btn-black" type="submit">Sign in</button>
+          <button className="btn-black" type="submit" disabled={isLoading}>
+            {isLoading ? 'Signing in...' : 'Sign in'}
+          </button>
         </form>
 
         <div className="divider">or continue</div>
