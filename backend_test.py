@@ -147,10 +147,10 @@ class BackendAPITester:
         print("\n📡 Testing ESP32 Data Endpoints...")
         
         # Test speaker status
-        self.run_test("Speaker Status", "GET", "esp32-data/speaker-status/1")
+        self.run_test("Speaker Status", "GET", "api/esp32-data/speaker-status/1")
         
         # Test active session
-        self.run_test("Active Session", "GET", "esp32-data/active-session/speaker/1")
+        self.run_test("Active Session", "GET", "api/esp32-data/active-session/speaker/1")
         
         # Test start session
         session_data = {
@@ -158,10 +158,10 @@ class BackendAPITester:
             "userId": 1,
             "initialBatteryPercentage": 100
         }
-        self.run_test("Start Session", "POST", "esp32-data/start-session", data=session_data)
+        self.run_test("Start Session", "POST", "api/esp32-data/start-session", data=session_data)
         
         # Test current session
-        self.run_test("Current Session", "GET", "esp32-data/current-session/1")
+        self.run_test("Current Session", "GET", "api/esp32-data/current-session/1")
 
     def test_basic_connectivity(self):
         """Test basic server connectivity"""
