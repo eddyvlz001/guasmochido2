@@ -124,7 +124,7 @@ const Login = () => {
               </button>
             </div>
             <div className="debug-info">
-              <small>Backend: http://localhost:3001/api/auth/login</small>
+              <small>Backend: {process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'}/api/auth/login</small>
             </div>
           </div>
 
