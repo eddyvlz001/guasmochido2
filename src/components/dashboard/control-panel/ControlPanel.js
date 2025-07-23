@@ -257,7 +257,9 @@ const ControlPanel = () => {
 
   // Métodos helper para el template
   const formatNumber = (value, decimals = 2) => {
-    return value ? value.toFixed(decimals) : '0.00';
+    if (value === null || value === undefined) return '0.00';
+    const num = typeof value === 'string' ? parseFloat(value) : value;
+    return isNaN(num) ? '0.00' : num.toFixed(decimals);
   };
 
   const getBatteryStatus = () => {
