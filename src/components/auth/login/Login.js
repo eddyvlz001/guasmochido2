@@ -109,7 +109,8 @@ const Login = () => {
               </button>
               <button type="button" className="test-btn direct-login" onClick={async () => {
                 try {
-                  const response = await axios.post('http://localhost:3001/api/auth/login', {
+                  const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+                  const response = await axios.post(`${backendURL}/api/auth/login`, {
                     usernameOrEmail: 'admin@test.com',
                     password: 'admin123'
                   });
