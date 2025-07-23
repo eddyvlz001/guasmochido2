@@ -30,7 +30,7 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post('https://backendpiensa-production-e02a.up.railway.app/auth/register', payload);
+      await axios.post('https://backendpiensa-production-e02a.up.railway.app/auth/register', payload);
       setSuccessMessage('¡Cuenta creada exitosamente!');
       setErrorMessage('');
       setTimeout(() => navigate('/auth/login'), 3000);
