@@ -130,7 +130,7 @@ const Login = () => {
               </button>
             </div>
             <div className="debug-info">
-              <small>Backend: {process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'}/api/auth/login</small>
+              <small>Backend: /.netlify/functions/login</small>
             </div>
           </div>
 
