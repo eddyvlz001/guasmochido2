@@ -106,6 +106,20 @@ const Login = () => {
               }}>
                 Load Demo
               </button>
+              <button type="button" className="test-btn direct-login" onClick={async () => {
+                try {
+                  const response = await axios.post('http://localhost:3001/api/auth/login', {
+                    usernameOrEmail: 'admin@test.com',
+                    password: 'admin123'
+                  });
+                  handleLogin(response.data.token, response.data.refreshToken, navigate);
+                } catch (err) {
+                  console.error('Direct login error:', err);
+                  setErrorMessage('Error en login directo: ' + err.message);
+                }
+              }}>
+                🚀 LOGIN DIRECTO
+              </button>
             </div>
             <div className="debug-info">
               <small>Backend: http://localhost:3001/api/auth/login</small>
