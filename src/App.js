@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import SplashScreen from './components/splash-screen/SplashScreen';
 import Login from './components/auth/login/Login';
+import QuickLogin from './components/auth/quick-login/QuickLogin';
 import Register from './components/auth/register/Register';
 import DashboardHome from './components/dashboard/dashboard-home/DashboardHome';
 import ControlPanel from './components/dashboard/control-panel/ControlPanel';
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<SplashScreen />} />
             <Route path="/auth/login" element={<Login />} />
+            <Route path="/quick-login" element={<QuickLogin />} />
             <Route path="/auth/register" element={<Register />} />
             <Route 
               path="/home" 
