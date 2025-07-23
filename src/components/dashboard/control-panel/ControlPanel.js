@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 import './ControlPanel.css';
 
 // Interfaces para tipar los datos
 const ControlPanel = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { user, logout } = useAuth();
   
   // Estado del componente
   const [showEnergy, setShowEnergy] = useState(false);
@@ -33,37 +31,7 @@ const ControlPanel = () => {
   
   const API_URL = 'http://localhost:3000/esp32-data';
 
-  useEffect(() => {
-    console.log('ID obtenido de la URL:', id);
-    
-    if (!id) {
-      setErrorMessage("No se encontró el ID del parlante en la URL.");
-      setIsLoading(false);
-      return;
-    }
-    
-    const parsedId = parseInt(id, 10);
-    console.log('ID parseado:', parsedId);
-    
-    // Validar que el ID sea un número válido y mayor que 0
-    if (isNaN(parsedId) || parsedId < 1) {
-      setErrorMessage(`ID de parlante inválido: ${id}. Debe ser un número entero mayor que 0.`);
-      setIsLoading(false);
-      return;
-    }
-    
-    setSpeakerId(parsedId);
-    console.log('SpeakerId establecido:', parsedId);
-    checkInitialStatus(parsedId);
-  }, [id]);
-
-  useEffect(() => {
-    return () => {
-      stopPolling();
-    };
-  }, []);
-
-  const checkInitialStatus = async (speakerIdParam) => {
+  const checkInitialStatus = useCallback(async (speakerIdParam) => {
     setIsLoading(true);
     console.log('Verificando estado inicial para speakerId:', speakerIdParam);
     
@@ -106,7 +74,37 @@ const ControlPanel = () => {
       setErrorMessage(err.response?.data?.message || "Error al verificar el estado del parlante.");
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    console.log('ID obtenido de la URL:', id);
+    
+    if (!id) {
+      setErrorMessage("No se encontró el ID del parlante en la URL.");
+      setIsLoading(false);
+      return;
+    }
+    
+    const parsedId = parseInt(id, 10);
+    console.log('ID parseado:', parsedId);
+    
+    // Validar que el ID sea un número válido y mayor que 0
+    if (isNaN(parsedId) || parsedId < 1) {
+      setErrorMessage(`ID de parlante inválido: ${id}. Debe ser un número entero mayor que 0.`);
+      setIsLoading(false);
+      return;
+    }
+    
+    setSpeakerId(parsedId);
+    console.log('SpeakerId establecido:', parsedId);
+    checkInitialStatus(parsedId);
+  }, [id, checkInitialStatus]);
+
+  useEffect(() => {
+    return () => {
+      stopPolling();
+    };
+  }, []);
   
   const getSpeakerDetails = async (speakerIdParam) => {
     console.log('Obteniendo detalles del parlante para speakerId:', speakerIdParam);
@@ -255,10 +253,6 @@ const ControlPanel = () => {
 
   const toggleEnergy = () => {
     setShowEnergy(!showEnergy);
-  };
-
-  const handleLogout = () => {
-    logout();
   };
 
   // Métodos helper para el template
