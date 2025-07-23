@@ -15,14 +15,16 @@ const SplashScreen = () => {
   }, [navigate]);
 
   return (
-    <div className="splash-container">
-      <div className="letter-block color-blue">S</div>
-      <div className="separator"></div>
-      <div className="letter-block color-blue">A</div>
-      <div className="separator"></div>
-      <div className="letter-block gradient">R</div>
-      <div className="separator"></div>
-      <div className="letter-block gradient">A</div>
+    <div className="splash-screen">
+      <div className="splash-animation-container">
+        <div className="splash-letter-block splash-color-blue">S</div>
+        <div className="splash-separator"></div>
+        <div className="splash-letter-block splash-color-blue">A</div>
+        <div className="splash-separator"></div>
+        <div className="splash-letter-block splash-gradient">R</div>
+        <div className="splash-separator"></div>
+        <div className="splash-letter-block splash-gradient">A</div>
+      </div>
     </div>
   );
 };
