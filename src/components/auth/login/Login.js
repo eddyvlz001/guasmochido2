@@ -77,6 +77,19 @@ const Login = () => {
           {/* Mensaje de error */}
           {errorMessage && <div className="error-message">{errorMessage}</div>}
 
+          {/* Credenciales de prueba */}
+          <div className="demo-credentials">
+            <h4>🔑 Credenciales de Prueba:</h4>
+            <div className="credential-item">
+              <strong>Email:</strong> admin@test.com<br/>
+              <strong>Password:</strong> admin123
+            </div>
+            <div className="credential-item">
+              <strong>Email:</strong> demo@piensa.com<br/>
+              <strong>Password:</strong> demo123
+            </div>
+          </div>
+
           <div className="forgot">Forget password?</div>
 
           <button className="btn-black" type="submit">Sign in</button>
