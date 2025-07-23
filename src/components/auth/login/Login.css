@@ -200,6 +200,39 @@
   border-left: 4px solid #e74c3c;
 }
 
+.demo-credentials {
+  background-color: rgba(58, 98, 116, 0.1);
+  border: 2px solid #3A6274;
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.demo-credentials h4 {
+  margin: 0 0 0.75rem 0;
+  color: #3A6274;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.credential-item {
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.credential-item:last-child {
+  margin-bottom: 0;
+}
+
+.credential-item strong {
+  color: #3A6274;
+}
+
 /* Responsive design */
 @media (min-width: 768px) {
   .login-container {
