@@ -23,20 +23,32 @@ const Register = () => {
       return;
     }
 
-    const payload = {
-      username: username,
-      email: email,
-      password: password,
-    };
-
     try {
-      await axios.post('http://localhost:3001/api/auth/register', payload);
-      setSuccessMessage('¡Cuenta creada exitosamente!');
+      // Simular proceso de registro con delay
+      console.log('📝 Attempting registration...', { username, email });
+      
+      // Simular delay de API
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Simular validación de email existente
+      const existingEmails = ['admin@test.com', 'demo@piensa.com'];
+      if (existingEmails.includes(email)) {
+        setErrorMessage('Este email ya está registrado. Prueba con uno diferente.');
+        setSuccessMessage('');
+        return;
+      }
+
+      console.log('✅ Registration successful');
+      setSuccessMessage('¡Cuenta creada exitosamente! Redirigiendo al login...');
       setErrorMessage('');
-      setTimeout(() => navigate('/auth/login'), 3000);
+      
+      // Navegar al login después de 2 segundos
+      setTimeout(() => navigate('/auth/login'), 2000);
+      
     } catch (error) {
+      console.error('❌ Registration error:', error);
       setSuccessMessage('');
-      setErrorMessage(error.response?.data?.message || 'Error al registrar.');
+      setErrorMessage('Error al registrar. Inténtalo de nuevo.');
     }
   };
 
