@@ -97,13 +97,13 @@ const Login = () => {
             <h4>🧪 TESTING PANEL</h4>
             <div className="test-buttons">
               <button type="button" className="test-btn" onClick={() => {
-                setUsernameOrEmail('admin@test.com');
-                setPassword('admin123');
+                setUsernameOrEmail('test@emergent.com');
+                setPassword('test123');
               }}>
-                Load Admin
+                Load Test User
               </button>
               <button type="button" className="test-btn" onClick={() => {
-                setUsernameOrEmail('demo@piensa.com');  
+                setUsernameOrEmail('demo@emergent.com');  
                 setPassword('demo123');
               }}>
                 Load Demo
@@ -114,8 +114,8 @@ const Login = () => {
                   console.log('📡 Making request to: /.netlify/functions/login');
                   
                   const response = await axios.post('/.netlify/functions/login', {
-                    email: 'admin@test.com',
-                    password: 'admin123'
+                    email: 'test@emergent.com',
+                    password: 'test123'
                   });
                   
                   console.log('✅ Login response:', response.data);
