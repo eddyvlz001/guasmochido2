@@ -99,20 +99,48 @@ class BackendAPITester:
         """Test authentication endpoints"""
         print("\n🔐 Testing Authentication Endpoints...")
         
-        # Test login endpoint
+        # Test login endpoint with real credentials
         login_data = {
-            "usernameOrEmail": "test@example.com",
-            "password": "testpassword"
+            "usernameOrEmail": "admin@test.com",
+            "password": "admin123"
         }
-        self.run_test("Login", "POST", "auth/login", data=login_data)
+        success, response = self.run_test("Login (admin)", "POST", "api/auth/login", 200, data=login_data)
         
-        # Test register endpoint (if exists)
-        register_data = {
-            "username": "testuser",
-            "email": "test@example.com",
-            "password": "testpassword"
+        # Test login with demo credentials
+        demo_login_data = {
+            "usernameOrEmail": "demo@piensa.com", 
+            "password": "demo123"
         }
-        self.run_test("Register", "POST", "auth/register", data=register_data)
+        self.run_test("Login (demo)", "POST", "api/auth/login", 200, data=demo_login_data)
+        
+        # Test register endpoint
+        register_data = {
+            "username": f"testuser_{datetime.now().strftime('%H%M%S')}",
+            "email": f"test_{datetime.now().strftime('%H%M%S')}@example.com",
+            "password": "test123"
+        }
+        self.run_test("Register", "POST", "api/auth/register", 201, data=register_data)
+        
+        # Test verify endpoint (requires token)
+        if success and response:
+            try:
+                token = response.json().get('token')
+                if token:
+                    headers = {'Authorization': f'Bearer {token}'}
+                    # We need to modify run_test to accept headers
+                    print(f"\n🔍 Testing Token Verification...")
+                    url = f"{self.base_url}/api/auth/verify"
+                    verify_response = requests.get(url, headers=headers, timeout=5)
+                    print(f"   Status: {verify_response.status_code}")
+                    if verify_response.status_code == 200:
+                        print(f"✅ Token Verification - Status: {verify_response.status_code}")
+                        self.tests_passed += 1
+                    else:
+                        print(f"❌ Token Verification - Expected 200, got {verify_response.status_code}")
+                    self.tests_run += 1
+            except Exception as e:
+                print(f"❌ Token Verification - Error: {str(e)}")
+                self.tests_run += 1
 
     def test_esp32_endpoints(self):
         """Test ESP32 data endpoints"""
