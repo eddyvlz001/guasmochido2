@@ -41,69 +41,71 @@ const Register = () => {
   };
 
   return (
-    <section>
-      <div className="container">
+    <div className="register-page">
+      <div className="register-container">
         <Logo/>
-        <h1>Sign Up</h1>
+        <h1 className="register-title">Sign Up</h1>
 
         {/* Mensajes */}
         {errorMessage && (
-          <div style={{color: 'red', marginBottom: '10px'}}>
+          <div className="error-message">
             {errorMessage}
           </div>
         )}
         {successMessage && (
-          <div style={{color: 'green', marginBottom: '10px'}}>
+          <div className="success-message">
             {successMessage}
           </div>
         )}
 
         {/* Formulario */}
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input 
-            id="username" 
-            className="input white-bg" 
-            type="text" 
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
+        <form className="register-form">
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input 
+              id="username" 
+              className="input" 
+              type="text" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input 
-            id="email" 
-            className="input white-bg" 
-            type="email" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input 
+              id="email" 
+              className="input" 
+              type="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input 
-            id="password" 
-            className="input white-bg" 
-            type="password" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input 
+              id="password" 
+              className="input" 
+              type="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-        <div className="forgot">Be between 4 and 12 characters</div>
+          <div className="forgot">Be between 4 and 12 characters</div>
 
-        <button className="btn-black" onClick={onSubmit}>Sign up</button>
+          <button className="btn-black" type="button" onClick={onSubmit}>Sign up</button>
 
-        <div className="signup">
-          <p>
-            You already have an account?
-            <b><Link to="/auth/login" className="underline-hover">Sign In</Link></b>
-          </p>
-        </div>
+          <div className="signup">
+            <p>
+              You already have an account?{' '}
+              <b><Link to="/auth/login" className="underline-hover">Sign In</Link></b>
+            </p>
+          </div>
+        </form>
       </div>
-    </section>
+    </div>
   );
 };
 
