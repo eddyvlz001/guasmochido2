@@ -1,0 +1,27 @@
+<div class="sara-dashboard futuristic">
+  <app-navbar 
+    [username]="username" 
+    [showLogoutButton]="true"
+    (logoutClick)="logout()">
+  </app-navbar>
+
+  <main class="sara-content column-layout">
+    <div class="widget-card big-card" routerLink="/dashboard/select-panel">
+      <div class="widget-icon">
+        <img class="icon" src="assets/icons/control-panel.svg" alt="Control Icon">
+      </div>
+      <div class="widget-label">Control Panel</div>
+    </div>
+
+    <div class="widget-card big-card" routerLink="/dashboard/history">
+      <div class="widget-icon">
+        <img class="icon" src="assets/icons/history.svg" alt="History" />
+      </div>
+      <div class="widget-label">History</div>
+    </div>
+  </main>
+
+  <footer class="sara-footer">
+    <button class="logout-btn logout-btn-mobile" (click)="logout()">Disconnect</button>
+  </footer>
+</div>

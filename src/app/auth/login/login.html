@@ -1,0 +1,29 @@
+<body>
+  <div class="container">
+    <app-logo />
+
+    <!-- Formulario de Login -->
+    <form (ngSubmit)="onLogin()">
+      <input class="input white-bg" type="email" placeholder="Email" [(ngModel)]="usernameOrEmail" name="email"
+        required />
+
+      <input class="input white-bg" type="password" placeholder="Password" [(ngModel)]="password" name="password"
+        required />
+
+      <!-- Mensaje de error -->
+      <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+
+      <div class="forgot">Forget password?</div>
+
+      <button class="btn-black" type="submit">Sign in</button>
+    </form>
+
+    <div class="divider">or continue</div>
+
+    <!-- Botón de Google -->
+    <button class="btn-google">
+      <img src="assets/icons/google-icon.svg" class="icon" />
+      Log in with Google
+    </button>
+  </div>
+</body>

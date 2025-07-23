@@ -1,0 +1,204 @@
+/* Contenedor para centrar todo en pantalla */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 140px;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box; 
+}
+
+/* Panel centrado con estilo limpio */
+.panel {
+  background-color: white;
+  padding: 30px 16px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo grande */
+.logo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  user-select: none;
+}
+
+/* Título del panel */
+.title {
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+/* Botones circulares */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+  margin-bottom: 20px;
+}
+
+/* Botón circular */
+.circle-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: #555;
+  border: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+  
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* EFECTO PRESIONADO */
+.circle-btn.pressed {
+  transform: scale(0.8);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.6), 
+              0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: none;
+}
+
+/* Animación brillante */
+.circle-btn.shiny {
+  animation: shine 0.6s ease-in-out;
+}
+
+@keyframes shine {
+  0% { box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 35px rgba(255, 255, 255, 0.7), 2px 2px 8px rgba(0, 0, 0, 0.3); }
+  100% { box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); }
+}
+
+/* Botón oculto */
+.circle-btn.button-hiden {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: default;
+  transition: none !important;
+  touch-action: none;
+}
+.circle-btn.button-hiden:hover,
+.circle-btn.button-hiden:focus,
+.circle-btn.button-hiden:active,
+.circle-btn.button-hiden.pressed {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Hover solo para dispositivos que lo soporten */
+@media (hover: hover) and (pointer: fine) {
+  .circle-btn:hover:not(.button-hiden) {
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+/* Colores activos */
+.circle-btn.active.yellow { background-color: #f9d71c; box-shadow: 0 0 15px #f9d71caa; }
+.circle-btn.active.red { background-color: #e74c3c; box-shadow: 0 0 15px #e74c3caa; }
+.circle-btn.active.purple { background-color: #8e44ad; box-shadow: 0 0 15px #8e44adaa; }
+.circle-btn.active.limegreen { background-color: #32cd32; box-shadow: 0 0 15px #32cd32aa; }
+.circle-btn.active.blue { background-color: #3498db; box-shadow: 0 0 15px #3498dbaa; }
+
+/* Espacio entre filas */
+.spacer {
+  grid-column: 1 / -1;
+  height: 0;
+}
+
+/* Botón de volver */
+.back-button {
+  margin-top: 2rem;
+  padding: 0.6rem 2rem;
+  background: black;
+  color: white;
+  font-style: italic;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.back-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #fff;
+}
+
+/* ================================== */
+/* MODIFICATIONS FOR RESPONSIVE VIEW  */
+/* ================================== */
+@media (max-width: 600px) {
+  .container {
+    padding: 0;
+  }
+
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  
+  .panel-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  .panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  
+  .logo {
+    color: #333;
+  }
+
+  .buttons {
+    gap: 2rem 1.5rem;
+  }
+
+  /* Hide the spacer as it's not needed for the 2-column layout */
+  .spacer {
+    display: none;
+  }
+  
+  .back-button {
+    margin-top: 60%; 
+    align-self: center;
+    border-radius: 30px;
+    width: 100%;
+    height: 60px;
+    max-width: 240px;
+  }
+
+  /* MODIFICATION: Make hidden button's background transparent on mobile */
+  .circle-btn.button-hiden {
+    background-color: transparent !important;
+  }
+}

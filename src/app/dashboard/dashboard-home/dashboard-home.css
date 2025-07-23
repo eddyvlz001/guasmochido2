@@ -1,0 +1,118 @@
+/* CONTENT */
+.column-layout {
+  display: flex;
+  flex-direction: row;
+  margin-top: 8%;
+  gap: 2rem;
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.widget-card {
+  background-color: #0e1f26;
+  color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(58, 98, 116, 0.4);
+  width: 350px;
+  min-height: 240px;
+  padding: 1.8rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.widget-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(58, 98, 116, 0.7);
+}
+
+.widget-icon img {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1rem;
+}
+
+.widget-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* FOOTER Y BOTÓN LOGOUT */
+.sara-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  background-color: transparent;
+}
+
+.logout-btn {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #3A6274;
+  color: white;
+  box-shadow: 0 0 20px rgba(58, 98, 116, 0.6);
+  transform: scale(1.05);
+}
+
+.logout-btn-mobile {
+  display: none;
+}
+
+/* MEDIA QUERY PARA MOBILE */
+@media (max-width: 600px) {
+  .column-layout {
+    padding: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .logout-btn {
+    display: flex;
+    left: 20px;
+    width: 100%;
+    max-width: 200px;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;    
+  }
+  
+  .logout-btn-desktop {
+    display: flex;
+    display: none;
+  }
+  .logout-btn-mobile {
+    display: block;
+  }
+
+  .sara-footer {
+    padding: 1rem;
+    margin-top: 1rem; 
+  }
+
+  .sara-content {
+    margin-left: 5px;
+    display: flex;
+  }
+
+  .widget-card {
+    max-width: 240px;
+    flex: 1 1 calc(50% - 2rem); /* Two cards per row with some spacing */
+  }
+}
