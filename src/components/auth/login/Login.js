@@ -135,7 +135,7 @@ const Login = () => {
               </button>
             </div>
             <div className="debug-info">
-              <small>Backend: /.netlify/functions/login</small>
+              <small>🔓 SISTEMA TEMPORAL: Usa admin@test.com/admin123 o demo@piensa.com/demo123</small>
             </div>
           </div>
 
