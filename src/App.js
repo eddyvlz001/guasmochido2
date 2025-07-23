@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import SplashScreen from './components/splash-screen/SplashScreen';
 import Login from './components/auth/login/Login';
 import Register from './components/auth/register/Register';
@@ -13,53 +14,55 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<SplashScreen />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/register" element={<Register />} />
-          <Route 
-            path="/home" 
-            element={
-              <ProtectedRoute>
-                <DashboardHome />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/dashboard/control-panel" 
-            element={
-              <ProtectedRoute>
-                <ControlPanel />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/dashboard/control-panel/:id" 
-            element={
-              <ProtectedRoute>
-                <ControlPanel />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/dashboard/history" 
-            element={
-              <ProtectedRoute>
-                <History />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/dashboard/select-panel" 
-            element={
-              <ProtectedRoute>
-                <SelectPanel />
-              </ProtectedRoute>
-            } 
-          />
-        </Routes>
-      </div>
+      <AuthProvider>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<SplashScreen />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/register" element={<Register />} />
+            <Route 
+              path="/home" 
+              element={
+                <ProtectedRoute>
+                  <DashboardHome />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/dashboard/control-panel" 
+              element={
+                <ProtectedRoute>
+                  <ControlPanel />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/dashboard/control-panel/:id" 
+              element={
+                <ProtectedRoute>
+                  <ControlPanel />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/dashboard/history" 
+              element={
+                <ProtectedRoute>
+                  <History />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/dashboard/select-panel" 
+              element={
+                <ProtectedRoute>
+                  <SelectPanel />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+        </div>
+      </AuthProvider>
     </Router>
   );
 }
