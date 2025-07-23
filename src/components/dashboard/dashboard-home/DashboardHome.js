@@ -24,7 +24,7 @@ const DashboardHome = () => {
   }, []);
 
   const handleLogout = () => {
-    logout();
+    logout(navigate);
   };
 
   return (
