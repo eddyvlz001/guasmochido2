@@ -9,6 +9,7 @@ const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { handleLogin } = useAuth();
 
@@ -20,33 +21,31 @@ const Login = () => {
       return;
     }
 
-    // Credenciales de prueba para login sin backend
-    const validCredentials = [
-      { email: 'admin@test.com', password: 'admin123' },
-      { email: 'user@test.com', password: 'user123' },
-      { email: 'demo@piensa.com', password: 'demo123' },
-      { email: 'test@example.com', password: 'test123' }
-    ];
+    setIsLoading(true);
+    setErrorMessage('');
 
-    // Verificar credenciales localmente
-    const validUser = validCredentials.find(
-      cred => cred.email === usernameOrEmail && cred.password === password
-    );
+    try {
+      // Call the real backend API
+      const response = await axios.post('http://localhost:3001/api/auth/login', {
+        usernameOrEmail: usernameOrEmail,
+        password: password
+      });
 
-    if (validUser) {
-      // Crear un token mock para simular login exitoso (formato JWT)
-      const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-      const payload = btoa(JSON.stringify({
-        username: usernameOrEmail.split('@')[0],
-        email: usernameOrEmail,
-        exp: Math.floor(Date.now() / 1000) + 3600 // 1 hora en segundos
-      }));
-      const signature = btoa("mock-signature");
-      const mockToken = `${header}.${payload}.${signature}`;
+      // Handle successful login
+      handleLogin(response.data.token, response.data.refreshToken, navigate);
       
-      handleLogin(mockToken, 'mock-refresh-token', navigate);
-    } else {
-      setErrorMessage('Credenciales incorrectas. Prueba con: admin@test.com / admin123');
+    } catch (err) {
+      console.error('Login error:', err);
+      
+      if (err.response?.status === 401) {
+        setErrorMessage('Credenciales incorrectas. Verifica tu email y contraseña.');
+      } else if (err.response?.data?.message) {
+        setErrorMessage(err.response.data.message);
+      } else {
+        setErrorMessage('Error al conectar con el servidor. Intenta de nuevo.');
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
