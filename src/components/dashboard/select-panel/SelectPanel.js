@@ -97,7 +97,7 @@ const SelectPanel = () => {
           <div className="panel-content">
             <div className="title">Control Panel</div>
             <div className="buttons">
-              <Link to="/dashboard/control-panel">
+              <Link to="/dashboard/control-panel/1">
                 <button 
                   className="circle-btn" 
                   onPointerDown={(e) => onButtonDown(e, 'yellow')}
@@ -106,7 +106,7 @@ const SelectPanel = () => {
                 >
                 </button>
               </Link>
-              <Link to="/dashboard/control-panel">
+              <Link to="/dashboard/control-panel/2">
                 <button 
                   className="circle-btn" 
                   onPointerDown={(e) => onButtonDown(e, 'red')}
@@ -115,7 +115,7 @@ const SelectPanel = () => {
                 >
                 </button>
               </Link>
-              <Link to="/dashboard/control-panel">
+              <Link to="/dashboard/control-panel/3">
                 <button 
                   className="circle-btn" 
                   onPointerDown={(e) => onButtonDown(e, 'purple')}
@@ -125,7 +125,7 @@ const SelectPanel = () => {
                 </button>
               </Link>
               <div className="spacer"></div>
-              <Link to="/dashboard/control-panel">
+              <Link to="/dashboard/control-panel/4">
                 <button 
                   className="circle-btn" 
                   onPointerDown={(e) => onButtonDown(e, 'limegreen')}
@@ -136,7 +136,7 @@ const SelectPanel = () => {
               </Link>
               <button className="circle-btn button-hiden">
               </button>
-              <Link to="/dashboard/control-panel">
+              <Link to="/dashboard/control-panel/5">
                 <button 
                   className="circle-btn move-right" 
                   onPointerDown={(e) => onButtonDown(e, 'blue')}
