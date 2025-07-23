@@ -9,14 +9,14 @@ const users = [
     id: 1,
     username: 'admin',
     email: 'admin@test.com',
-    password: '$2a$10$8K1p/a9y4kXU9lT5CxVZKe7q7VjMJdBQ8Ov0m2Zf3Gf0nG8Kp2xUy', // admin123
+    password: '$2a$10$8PYZrzSVMJwLKFJUbX.gtuT7gGsMbH5W8jiPtBgdFjEyOPtpEGt9O', // admin123
     createdAt: new Date()
   },
   {
     id: 2,
     username: 'demo',
     email: 'demo@piensa.com',
-    password: '$2a$10$9L2q/b0z5lYV0mU6DyWaLf8r8WkNKeCR9Pw1n3Ag4Hg1oH9Lq3yVz', // demo123
+    password: '$2a$10$vaGGZJMAfVHJiH9Ymzb3reKS.9KhaRMLThtmUN7eET2aax9mDlwVe', // demo123
     createdAt: new Date()
   }
 ];
