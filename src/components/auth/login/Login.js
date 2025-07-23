@@ -35,14 +35,14 @@ const Login = () => {
   };
 
   return (
-    <body>
-      <div className="container">
+    <div className="login-page">
+      <div className="login-container">
         <Logo />
 
         {/* Formulario de Login */}
-        <form onSubmit={onLogin}>
+        <form className="login-form" onSubmit={onLogin}>
           <input 
-            className="input white-bg" 
+            className="input" 
             type="email" 
             placeholder="Email" 
             value={usernameOrEmail}
@@ -52,7 +52,7 @@ const Login = () => {
           />
 
           <input 
-            className="input white-bg" 
+            className="input" 
             type="password" 
             placeholder="Password" 
             value={password}
@@ -62,7 +62,7 @@ const Login = () => {
           />
 
           {/* Mensaje de error */}
-          {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
 
           <div className="forgot">Forget password?</div>
 
@@ -79,12 +79,12 @@ const Login = () => {
 
         <div className="signup">
           <p>
-            Don't have an account?
+            Don't have an account?{' '}
             <b><Link to="/auth/register" className="underline-hover">Sign Up</Link></b>
           </p>
         </div>
       </div>
-    </body>
+    </div>
   );
 };
 
