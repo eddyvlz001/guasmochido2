@@ -82,6 +82,7 @@ const Login = () => {
           <div className="forgot">Forget password?</div>
 
           <button className="btn-black" type="submit" disabled={isLoading}>
+            {isLoading && <span className="loading-spinner"></span>}
             {isLoading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
