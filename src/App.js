@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import SplashScreen from './components/splash-screen/SplashScreen';
 import Login from './components/auth/login/Login';
 import QuickLogin from './components/auth/quick-login/QuickLogin';
+import SimpleLogin from './components/auth/simple-login/SimpleLogin';
 import Register from './components/auth/register/Register';
 import DashboardHome from './components/dashboard/dashboard-home/DashboardHome';
 import ControlPanel from './components/dashboard/control-panel/ControlPanel';
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<SplashScreen />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/quick-login" element={<QuickLogin />} />
+            <Route path="/simple-login" element={<SimpleLogin />} />
             <Route path="/auth/register" element={<Register />} />
             <Route 
               path="/home" 
