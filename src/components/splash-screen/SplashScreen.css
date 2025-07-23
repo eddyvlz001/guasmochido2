@@ -1,60 +1,82 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #ffffff;
-  font-family: 'Bebas Neue', sans-serif;
-}
-
-.splash-container {
+/* Splash screen específico - pantalla completa */
+.splash-screen {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  gap: 2vw;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: linear-gradient(to bottom, #ffffff, #3A6274);
 }
 
-.letter-block {
-  font-size: 6vw;
+.splash-animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.splash-letter-block {
+  font-size: clamp(3rem, 8vw, 6rem);
   font-weight: bold;
-  animation: bounce 2s;
+  animation: bounce 2s infinite;
   text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
 }
 
-/* Animación suave */
+.splash-separator {
+  width: 3px;
+  height: clamp(4rem, 10vw, 8rem);
+  background-color: #3A6274;
+}
+
+/* Animación específica del splash */
 @keyframes bounce {
   0%, 100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.4);
+    transform: scale(1.2);
   }
 }
 
-/* Línea separadora */
-.separator {
-  width: 2px;
-  height: 8vw;
-  background-color: #3A6274;
-}
-
-/* Colores */
-.color-blue {
+/* Colores del splash */
+.splash-color-blue {
   color: #3A6274;
 }
 
-.gradient {
+.splash-gradient {
   background: linear-gradient(to bottom, #A0A0A0, #3A3A3A);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Responsive para móviles */
-@media (max-width: 768px) {
-  .letter-block {
-    font-size: 10vw;
+/* Responsive para splash */
+@media (max-width: 480px) {
+  .splash-animation-container {
+    gap: clamp(0.5rem, 2vw, 1rem);
   }
+  
+  .splash-letter-block {
+    font-size: clamp(2rem, 6vw, 4rem);
+  }
+  
+  .splash-separator {
+    width: 2px;
+    height: clamp(3rem, 8vw, 6rem);
+  }
+}
 
-  .separator {
-    height: 12vw;
+@media (orientation: landscape) and (max-height: 480px) {
+  .splash-letter-block {
+    font-size: clamp(2rem, 5vh, 3rem);
+  }
+  
+  .splash-separator {
+    height: clamp(2rem, 6vh, 4rem);
   }
 }
