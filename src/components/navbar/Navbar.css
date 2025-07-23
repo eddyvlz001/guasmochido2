@@ -1,4 +1,4 @@
-/* Estilos base para la barra de navegación */
+/* Navbar Responsive Styles */
 .sara-navbar {
   width: 100%;
   display: flex;
@@ -6,9 +6,9 @@
   align-items: center;
   justify-content: space-between;
   background-color: #1c333d;
-  max-height: 130px;
+  min-height: 80px;
   gap: 1rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
   color: #fff;
   border-bottom: 2px solid #3A6274;
   box-sizing: border-box;
@@ -16,9 +16,8 @@
 
 .logo-section {
   display: flex;
-  width: 100%;
   align-items: center;
-  margin-bottom: 0.5rem;
+  flex-shrink: 0;
 }
 
 .logo-text {
@@ -29,14 +28,14 @@
 
 .user-badge {
   background-color: #3A6274;
-  padding: 0.8rem 2rem;
+  padding: 0.6rem 1.5rem;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-align: center;
-  border-radius: 30px;
+  border-radius: 25px;
   font-weight: 600;
-  margin-left: auto; 
-  width: 120px;
+  white-space: nowrap;
+  min-width: 100px;
 }
 
 /* Estilos para el botón de desconectar */
@@ -44,12 +43,13 @@
   background-color: transparent;
   border: 2px solid #ffffff;
   color: #ffffff;
-  padding: 0.8rem 2rem;
-  border-radius: 30px;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .logout-btn:hover {
@@ -67,33 +67,77 @@
   display: none;
 }
 
-/* ================================== */
-/* MEDIA QUERY PARA VISTA MÓVIL       */
-/* ================================== */
-@media (max-width: 600px) {
-  /* Centra el contenido de la barra de navegación */
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
   .sara-navbar {
-    justify-content: center;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
+    min-height: 70px;
+    gap: 0.75rem;
   }
   
-  /* Apila el logo y el nombre de usuario verticalmente */
-  .logo-section {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-    width: auto;
-    margin-bottom: 0;
-  }
-  
-  /* Elimina el margen de la insignia de usuario */
   .user-badge {
-    margin-left: 0;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    min-width: 80px;
   }
   
-  /* Oculta el botón de desconectar de escritorio en la vista móvil */
+  .logout-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .sara-navbar {
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    min-height: auto;
+    gap: 1rem;
+  }
+  
+  .logo-section {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .user-badge {
+    margin: 0;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+  }
+  
   .logout-btn-desktop {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sara-navbar {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  
+  .user-badge {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Para pantallas muy anchas */
+@media (min-width: 1200px) {
+  .sara-navbar {
+    padding: 1.5rem 3rem;
+  }
+  
+  .user-badge {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    min-width: 120px;
+  }
+  
+  .logout-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
   }
 }
