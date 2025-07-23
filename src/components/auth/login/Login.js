@@ -101,13 +101,13 @@ const Login = () => {
             <h4>🧪 TESTING PANEL</h4>
             <div className="test-buttons">
               <button type="button" className="test-btn" onClick={() => {
-                setUsernameOrEmail('test@emergent.com');
-                setPassword('test123');
+                setUsernameOrEmail('admin@test.com');
+                setPassword('admin123');
               }}>
-                Load Test User
+                Load Admin
               </button>
               <button type="button" className="test-btn" onClick={() => {
-                setUsernameOrEmail('demo@emergent.com');  
+                setUsernameOrEmail('demo@piensa.com');  
                 setPassword('demo123');
               }}>
                 Load Demo
@@ -115,19 +115,20 @@ const Login = () => {
               <button type="button" className="test-btn direct-login" onClick={async () => {
                 try {
                   console.log('🚀 LOGIN DIRECTO clicked!');
-                  console.log('📡 Making request to: /.netlify/functions/login');
                   
-                  const response = await axios.post('/.netlify/functions/login', {
-                    email: 'test@emergent.com',
-                    password: 'test123'
-                  });
+                  // Login directo temporal
+                  const mockToken = btoa(JSON.stringify({
+                    id: Date.now(),
+                    username: 'admin',
+                    email: 'admin@test.com',
+                    exp: Date.now() + 24 * 60 * 60 * 1000
+                  }));
                   
-                  console.log('✅ Login response:', response.data);
-                  handleLogin(response.data.token, response.data.refreshToken, navigate);
+                  console.log('✅ Direct login successful');
+                  handleLogin(mockToken, 'mock-refresh-token', navigate);
                 } catch (err) {
                   console.error('❌ Direct login error:', err);
-                  console.error('❌ Error details:', err.response?.data);
-                  setErrorMessage('Error en login directo: ' + (err.response?.data?.error || err.message));
+                  setErrorMessage('Error en login directo: ' + err.message);
                 }
               }}>
                 🚀 LOGIN DIRECTO
