@@ -109,15 +109,22 @@ const Login = () => {
               </button>
               <button type="button" className="test-btn direct-login" onClick={async () => {
                 try {
+                  console.log('🚀 LOGIN DIRECTO clicked!');
                   const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+                  console.log('🌐 Backend URL:', backendURL);
+                  console.log('📡 Making request to:', `${backendURL}/api/auth/login`);
+                  
                   const response = await axios.post(`${backendURL}/api/auth/login`, {
                     usernameOrEmail: 'admin@test.com',
                     password: 'admin123'
                   });
+                  
+                  console.log('✅ Login response:', response.data);
                   handleLogin(response.data.token, response.data.refreshToken, navigate);
                 } catch (err) {
-                  console.error('Direct login error:', err);
-                  setErrorMessage('Error en login directo: ' + err.message);
+                  console.error('❌ Direct login error:', err);
+                  console.error('❌ Error details:', err.response?.data);
+                  setErrorMessage('Error en login directo: ' + (err.response?.data?.message || err.message));
                 }
               }}>
                 🚀 LOGIN DIRECTO
