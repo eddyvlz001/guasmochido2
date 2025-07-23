@@ -20,17 +20,30 @@ const Login = () => {
       return;
     }
 
-    const payload = {
-      usernameOrEmail: usernameOrEmail,
-      password: password
-    };
+    // Credenciales de prueba para login sin backend
+    const validCredentials = [
+      { email: 'admin@test.com', password: 'admin123' },
+      { email: 'user@test.com', password: 'user123' },
+      { email: 'demo@piensa.com', password: 'demo123' },
+      { email: 'test@example.com', password: 'test123' }
+    ];
 
-    try {
-      const response = await axios.post('http://localhost:3000/auth/login', payload);
-      handleLogin(response.data.token, response.data.refreshToken, navigate);
-    } catch (err) {
-      console.error(err);
-      setErrorMessage(err.response?.data?.message || 'Error al iniciar sesión.');
+    // Verificar credenciales localmente
+    const validUser = validCredentials.find(
+      cred => cred.email === usernameOrEmail && cred.password === password
+    );
+
+    if (validUser) {
+      // Crear un token mock para simular login exitoso
+      const mockToken = btoa(JSON.stringify({
+        username: usernameOrEmail.split('@')[0],
+        email: usernameOrEmail,
+        exp: Date.now() + 3600000 // 1 hora
+      }));
+      
+      handleLogin(mockToken, 'mock-refresh-token', navigate);
+    } else {
+      setErrorMessage('Credenciales incorrectas. Prueba con: admin@test.com / admin123');
     }
   };
 
