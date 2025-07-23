@@ -3,7 +3,7 @@ import './Logo.css';
 
 const Logo = ({ letters = '' }) => {
   return (
-    <div className="splash-container">
+    <div className="logo-container">
       <div className="letter-block color-blue">S</div>
       <div className="separator"></div>
       <div className="letter-block color-blue">A</div>
