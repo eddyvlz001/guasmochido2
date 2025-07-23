@@ -1,10 +1,12 @@
-section {
+/* Register form responsive styles */
+.register-page {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   box-sizing: border-box;
   animation: fadeIn 0.5s ease both;
+  padding: 1rem;
 }
 
 @keyframes fadeIn {
@@ -16,50 +18,33 @@ section {
   }
 }
 
-h1 {
-  text-align: left;
-  font-size: 30px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-/* Contenedor principal */
-.container {
-  width: 90%;
-  max-width: 350px;
+.register-container {
+  width: 100%;
+  max-width: 400px;
   text-align: center;
-  padding: 40px 20px;
+  padding: 2rem 1.5rem;
   margin: 0 auto;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   box-sizing: border-box;
-  background-color: transparent; /* Cambia a blanco si quieres fondo */
+  background-color: transparent;
 }
 
-/* Para pantallas medianas y grandes */
-@media (min-width: 768px) {
-  .container {
-    max-width: 500px;
-    padding: 60px 40px;
-    background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  }
+.register-title {
+  text-align: left;
+  font-size: 2rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
-.container input,
-.container button,
-.container p,
-.container div,
-.container label,
-.container form {
-  font-family: inherit;
-  font-size: inherit;
-  box-sizing: border-box;
+.register-form {
+  width: 100%;
 }
 
 .form-group {
   text-align: left;
-  margin-bottom: 5px;
+  margin-bottom: 1.25rem;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -67,74 +52,81 @@ label {
   display: block;
   font-style: normal;
   font-weight: bold;
-  margin-bottom: 6px;
-  color: #000;
-  font-size: 23px;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1.1rem;
 }
 
 .input {
   width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  border: 1px solid #000;
-  border-radius: 10px;
-  font-style: italic;
-  font-size: 14px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border: 2px solid #333;
+  border-radius: 12px;
+  font-size: 1rem;
   font-family: inherit;
   box-sizing: border-box;
   background-color: white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.white-bg {
-  background-color: white;
+.input:focus {
+  outline: none;
+  border-color: #3A6274;
+  box-shadow: 0 0 0 3px rgba(58, 98, 116, 0.1);
 }
 
-/* Botones */
-.btn-black, .btn-google {
-  background-color: black;
+.btn-black {
+  background-color: #000;
   color: white;
-  padding: 16px;
+  padding: 1rem 2rem;
   width: 100%;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1.1rem;
   cursor: pointer;
   box-sizing: border-box;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  transition: all 0.3s ease;
+  margin: 1rem 0;
 }
 
-.btn-black:active,
-.btn-google:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.btn-black:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Texto "olvidé contraseña" u otros mensajes */
+.btn-black:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 .forgot {
   text-align: left;
-  font-size: 18px;
-  color: #000;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
   font-family: inherit;
 }
 
-/* Texto de registro */
 .signup {
-  margin-top: 20px;
-  font-size: 15px;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
   font-family: inherit;
+  color: #666;
 }
 
 .signup b {
   font-style: normal;
 }
 
-/* Links con efecto subrayado */
 .underline-hover {
   position: relative;
   text-decoration: none;
-  color: inherit;
+  color: #3A6274;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .underline-hover::after {
@@ -143,13 +135,111 @@ label {
   bottom: -2px;
   left: 0;
   width: 100%;
-  height: 1px;
-  background: currentColor;
+  height: 2px;
+  background: #3A6274;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.3s ease;
+}
+
+.underline-hover:hover {
+  color: #2A4F5F;
 }
 
 .underline-hover:hover::after {
   transform: scaleX(1);
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background-color: rgba(231, 76, 60, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+
+.success-message {
+  color: #27ae60;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background-color: rgba(39, 174, 96, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #27ae60;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .register-container {
+    max-width: 450px;
+    padding: 3rem 2.5rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .input {
+    font-size: 1.1rem;
+    padding: 1.2rem;
+  }
+
+  .btn-black {
+    font-size: 1.1rem;
+    padding: 1.2rem 2rem;
+  }
+
+  .register-title {
+    font-size: 2.2rem;
+  }
+
+  label {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-page {
+    padding: 0.5rem;
+  }
+  
+  .register-container {
+    padding: 1.5rem 1rem;
+    max-width: 100%;
+  }
+
+  .input {
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
+
+  .btn-black {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .register-title {
+    font-size: 1.75rem;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .register-page {
+    padding: 0.5rem;
+  }
+  
+  .register-container {
+    padding: 1rem;
+  }
+
+  .register-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
 }
