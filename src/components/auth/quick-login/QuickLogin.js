@@ -18,12 +18,19 @@ const QuickLogin = () => {
         exp: Date.now() + 24 * 60 * 60 * 1000
       }));
 
-      console.log('✅ Mock token generated');
+      console.log('✅ Mock token generated:', mockToken);
       
-      // Call handleLogin from context
-      handleLogin(mockToken, 'mock-refresh-token', navigate);
+      // Store in localStorage directly
+      localStorage.setItem('token', mockToken);
+      localStorage.setItem('refreshToken', 'mock-refresh-token');
       
-      console.log('✅ Login function called, should redirect now');
+      console.log('✅ Tokens stored in localStorage');
+      
+      // Navigate directly
+      console.log('🔄 Navigating to /home...');
+      navigate('/home');
+      
+      console.log('✅ Navigation call completed');
     } catch (error) {
       console.error('❌ Login error:', error);
     }
