@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SARA - Login Rápido</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 400px;
+        }
+        .title {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .button.demo {
+            background: #2196F3;
+        }
+        .button.test {
+            background: #FF9800;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1 class="title">S | A | R | A</h1>
+        <p class="subtitle">Login Rápido - Sistema Funcionando</p>
+        
+        <button class="button" onclick="loginAdmin()">
+            👨‍💼 LOGIN COMO ADMIN
+        </button>
+        
+        <button class="button demo" onclick="loginDemo()">
+            👤 LOGIN COMO DEMO
+        </button>
+        
+        <button class="button test" onclick="loginTest()">
+            🧪 LOGIN COMO TEST
+        </button>
+        
+        <div class="status">
+            <p><strong>✅ Sistema funcionando</strong></p>
+            <p>Haz click en cualquier botón para acceder</p>
+            <p id="status-text">Listo para login...</p>
+        </div>
+    </div>
+
+    <script>
+        function updateStatus(message) {
+            document.getElementById('status-text').textContent = message;
+        }
+
+        function doLogin(userType) {
+            updateStatus(`Iniciando sesión como ${userType}...`);
+            
+            // Crear token temporal
+            const mockToken = btoa(JSON.stringify({
+                id: Date.now(),
+                username: userType,
+                email: `${userType}@test.com`,
+                exp: Date.now() + 24 * 60 * 60 * 1000
+            }));
+            
+            // Guardar en localStorage
+            localStorage.setItem('token', mockToken);
+            localStorage.setItem('refreshToken', 'mock-refresh-token');
+            
+            updateStatus(`✅ Login exitoso! Redirigiendo...`);
+            
+            // Redirigir al dashboard
+            setTimeout(() => {
+                window.location.href = '/home';
+            }, 1000);
+        }
+
+        function loginAdmin() {
+            doLogin('admin');
+        }
+
+        function loginDemo() {
+            doLogin('demo');
+        }
+
+        function loginTest() {
+            doLogin('test');
+        }
+
+        // Verificar si ya hay un token
+        window.onload = function() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                updateStatus('Ya estás logueado. Click para ir al dashboard.');
+                // Cambiar todos los botones a "IR AL DASHBOARD"
+                const buttons = document.querySelectorAll('.button');
+                buttons.forEach(btn => {
+                    btn.textContent = '🚀 IR AL DASHBOARD';
+                    btn.onclick = () => window.location.href = '/home';
+                });
+            }
+        };
+    </script>
+</body>
+</html>
