@@ -121,7 +121,10 @@ const Login = () => {
                 try {
                   console.log('🚀 LOGIN DIRECTO clicked!');
                   
-                  // Login directo temporal
+                  // Login directo temporal con delay realista
+                  setIsLoading(true);
+                  await new Promise(resolve => setTimeout(resolve, 1000));
+                  
                   const mockToken = btoa(JSON.stringify({
                     id: Date.now(),
                     username: 'admin',
@@ -131,9 +134,11 @@ const Login = () => {
                   
                   console.log('✅ Direct login successful');
                   handleLogin(mockToken, 'mock-refresh-token', navigate);
+                  setIsLoading(false);
                 } catch (err) {
                   console.error('❌ Direct login error:', err);
                   setErrorMessage('Error en login directo: ' + err.message);
+                  setIsLoading(false);
                 }
               }}>
                 🚀 LOGIN DIRECTO
