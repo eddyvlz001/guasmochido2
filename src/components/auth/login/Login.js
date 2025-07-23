@@ -24,15 +24,17 @@ const Login = () => {
     setIsLoading(true);
     setErrorMessage('');
 
+    // Debug info
+    const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
     console.log('🔐 Attempting login with:', { 
       usernameOrEmail, 
       passwordLength: password.length,
-      backendURL: 'http://localhost:3001/api/auth/login' 
+      backendURL: backendURL,
+      fullURL: `${backendURL}/api/auth/login`
     });
 
     try {
       // Call the real backend API
-      const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
       const response = await axios.post(`${backendURL}/api/auth/login`, {
         usernameOrEmail: usernameOrEmail,
         password: password
@@ -46,6 +48,8 @@ const Login = () => {
     } catch (err) {
       console.error('❌ Login error:', err);
       console.error('❌ Error response:', err.response?.data);
+      console.error('❌ Error code:', err.code);
+      console.error('❌ Error message:', err.message);
       
       if (err.response?.status === 401) {
         setErrorMessage('Credenciales incorrectas. Verifica tu email y contraseña.');
@@ -53,6 +57,8 @@ const Login = () => {
         setErrorMessage(err.response.data.message);
       } else if (err.code === 'ECONNREFUSED') {
         setErrorMessage('Error: No se puede conectar con el servidor backend.');
+      } else if (err.code === 'ERR_NETWORK') {
+        setErrorMessage('Error de red: Verifica la conexión al backend.');
       } else {
         setErrorMessage(`Error: ${err.message || 'Error desconocido'}`);
       }
