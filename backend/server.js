@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const { initializeDatabase } = require('./config/database');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
@@ -10,6 +11,9 @@ const esp32Routes = require('./routes/esp32');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Initialize database on startup
+initializeDatabase();
 
 // Security middleware
 app.use(helmet());
@@ -34,7 +38,8 @@ app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()
+    uptime: process.uptime(),
+    database: 'PostgreSQL Connected'
   });
 });
 
@@ -65,6 +70,7 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🌐 Health check: http://localhost:${PORT}/health`);
   console.log(`🔐 Auth endpoints: http://localhost:${PORT}/api/auth/`);
   console.log(`📡 ESP32 endpoints: http://localhost:${PORT}/api/esp32-data/`);
+  console.log(`🗄️  Database: PostgreSQL`);
 });
 
 module.exports = app;
