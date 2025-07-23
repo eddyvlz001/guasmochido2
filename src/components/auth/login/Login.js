@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 import Logo from '../../logo/Logo';
 import './Login.css';
 
@@ -9,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { handleLogin } = useAuth();
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -25,8 +27,7 @@ const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:3000/auth/login', payload);
-      localStorage.setItem('token', response.data.token); // si el backend te da un JWT
-      navigate('/home'); // redirige al panel
+      handleLogin(response.data.token, response.data.refreshToken, navigate);
     } catch (err) {
       console.error(err);
       setErrorMessage(err.response?.data?.message || 'Error al iniciar sesión.');
@@ -75,6 +76,13 @@ const Login = () => {
           <img src="assets/icons/google-icon.svg" className="icon" alt="Google" />
           Log in with Google
         </button>
+
+        <div className="signup">
+          <p>
+            Don't have an account?
+            <b><Link to="/auth/register" className="underline-hover">Sign Up</Link></b>
+          </p>
+        </div>
       </div>
     </body>
   );
