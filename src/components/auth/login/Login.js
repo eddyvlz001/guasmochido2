@@ -24,15 +24,20 @@ const Login = () => {
     setIsLoading(true);
     setErrorMessage('');
 
-    // SOLUCIÓN TEMPORAL: Usuarios hardcodeados para testing
-    const validUsers = [
-      { email: 'admin@test.com', password: 'admin123', username: 'admin' },
-      { email: 'demo@piensa.com', password: 'demo123', username: 'demo' },
-      { email: 'test@emergent.com', password: 'test123', username: 'test' },
-      { email: 'usuario@correo.com', password: '123456', username: 'usuario' }
-    ];
+    console.log('🔐 Attempting login with:', { usernameOrEmail, password: '***' });
 
     try {
+      // SOLUCIÓN TEMPORAL: Usuarios hardcodeados para testing
+      const validUsers = [
+        { email: 'admin@test.com', password: 'admin123', username: 'admin' },
+        { email: 'demo@piensa.com', password: 'demo123', username: 'demo' },
+        { email: 'test@emergent.com', password: 'test123', username: 'test' },
+        { email: 'usuario@correo.com', password: '123456', username: 'usuario' }
+      ];
+
+      // Simular un pequeño delay como si fuera una API real
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       // Verificar credenciales localmente
       const user = validUsers.find(u => 
         (u.email === usernameOrEmail || u.username === usernameOrEmail) && 
@@ -40,12 +45,12 @@ const Login = () => {
       );
 
       if (!user) {
-        setErrorMessage('Credenciales incorrectas. Usa: admin@test.com/admin123 o demo@piensa.com/demo123');
+        setErrorMessage('Credenciales incorrectas. Prueba: admin@test.com / admin123');
         setIsLoading(false);
         return;
       }
 
-      console.log('✅ Login successful with temporary solution');
+      console.log('✅ Login successful with:', user.email);
 
       // Generar token temporal
       const mockToken = btoa(JSON.stringify({
