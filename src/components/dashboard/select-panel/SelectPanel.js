@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
 import './SelectPanel.css';
@@ -8,7 +8,7 @@ const SelectPanel = () => {
   const pressedButtonRef = useRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('token');
       if (token) {
@@ -82,23 +82,6 @@ const SelectPanel = () => {
     if (pressedButtonRef.current === target) {
       pressedButtonRef.current = null;
     }
-  };
-
-  // Método de respaldo para compatibilidad
-  const changeColor = (event, color) => {
-    event.preventDefault();
-    const target = event.target;
-    
-    if (target.classList.contains('button-hiden')) {
-      return;
-    }
-    
-    target.style.backgroundColor = color;
-    target.classList.add('shiny');
-    
-    setTimeout(() => {
-      target.classList.remove('shiny');
-    }, 600);
   };
 
   return (
