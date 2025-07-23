@@ -24,6 +24,12 @@ const Login = () => {
     setIsLoading(true);
     setErrorMessage('');
 
+    console.log('🔐 Attempting login with:', { 
+      usernameOrEmail, 
+      passwordLength: password.length,
+      backendURL: 'http://localhost:3001/api/auth/login' 
+    });
+
     try {
       // Call the real backend API
       const response = await axios.post('http://localhost:3001/api/auth/login', {
@@ -31,18 +37,23 @@ const Login = () => {
         password: password
       });
 
+      console.log('✅ Login successful:', response.data);
+
       // Handle successful login
       handleLogin(response.data.token, response.data.refreshToken, navigate);
       
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('❌ Login error:', err);
+      console.error('❌ Error response:', err.response?.data);
       
       if (err.response?.status === 401) {
         setErrorMessage('Credenciales incorrectas. Verifica tu email y contraseña.');
       } else if (err.response?.data?.message) {
         setErrorMessage(err.response.data.message);
+      } else if (err.code === 'ECONNREFUSED') {
+        setErrorMessage('Error: No se puede conectar con el servidor backend.');
       } else {
-        setErrorMessage('Error al conectar con el servidor. Intenta de nuevo.');
+        setErrorMessage(`Error: ${err.message || 'Error desconocido'}`);
       }
     } finally {
       setIsLoading(false);
