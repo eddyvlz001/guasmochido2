@@ -79,6 +79,28 @@ const Login = () => {
           {/* Mensaje de error */}
           {errorMessage && <div className="error-message">{errorMessage}</div>}
 
+          {/* Panel de Testing - TEMPORAL */}
+          <div className="testing-panel">
+            <h4>🧪 TESTING PANEL</h4>
+            <div className="test-buttons">
+              <button type="button" className="test-btn" onClick={() => {
+                setUsernameOrEmail('admin@test.com');
+                setPassword('admin123');
+              }}>
+                Load Admin
+              </button>
+              <button type="button" className="test-btn" onClick={() => {
+                setUsernameOrEmail('demo@piensa.com');  
+                setPassword('demo123');
+              }}>
+                Load Demo
+              </button>
+            </div>
+            <div className="debug-info">
+              <small>Backend: http://localhost:3001/api/auth/login</small>
+            </div>
+          </div>
+
           <div className="forgot">Forget password?</div>
 
           <button className="btn-black" type="submit" disabled={isLoading}>
