@@ -1,27 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { pool } = require('../config/database');
 const router = express.Router();
-
-// In-memory database simulation (en producción usarías MongoDB)
-const users = [
-  {
-    id: 1,
-    username: 'admin',
-    email: 'admin@test.com',
-    password: '$2a$10$8PYZrzSVMJwLKFJUbX.gtuT7gGsMbH5W8jiPtBgdFjEyOPtpEGt9O', // admin123
-    createdAt: new Date()
-  },
-  {
-    id: 2,
-    username: 'demo',
-    email: 'demo@piensa.com',
-    password: '$2a$10$vaGGZJMAfVHJiH9Ymzb3reKS.9KhaRMLThtmUN7eET2aax9mDlwVe', // demo123
-    createdAt: new Date()
-  }
-];
-
-let nextUserId = 3;
 
 // Helper function to generate JWT
 const generateToken = (user) => {
@@ -38,6 +19,8 @@ const generateToken = (user) => {
 
 // Register endpoint
 router.post('/register', async (req, res) => {
+  const client = await pool.connect();
+  
   try {
     const { username, email, password } = req.body;
 
@@ -55,8 +38,12 @@ router.post('/register', async (req, res) => {
     }
 
     // Check if user already exists
-    const existingUser = users.find(u => u.email === email || u.username === username);
-    if (existingUser) {
+    const existingUser = await client.query(
+      'SELECT id FROM users WHERE email = $1 OR username = $2',
+      [email, username]
+    );
+
+    if (existingUser.rows.length > 0) {
       return res.status(400).json({
         message: 'Usuario o email ya existe'
       });
@@ -66,27 +53,24 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create new user
-    const newUser = {
-      id: nextUserId++,
-      username,
-      email,
-      password: hashedPassword,
-      createdAt: new Date()
-    };
+    const newUser = await client.query(
+      'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email, created_at',
+      [username, email, hashedPassword]
+    );
 
-    users.push(newUser);
+    const user = newUser.rows[0];
 
     // Generate token
-    const token = generateToken(newUser);
+    const token = generateToken(user);
 
     res.status(201).json({
       message: '¡Cuenta creada exitosamente!',
       token,
       refreshToken: 'mock-refresh-token',
       user: {
-        id: newUser.id,
-        username: newUser.username,
-        email: newUser.email
+        id: user.id,
+        username: user.username,
+        email: user.email
       }
     });
 
@@ -95,11 +79,15 @@ router.post('/register', async (req, res) => {
     res.status(500).json({
       message: 'Error interno del servidor'
     });
+  } finally {
+    client.release();
   }
 });
 
 // Login endpoint
 router.post('/login', async (req, res) => {
+  const client = await pool.connect();
+  
   try {
     const { usernameOrEmail, email, password } = req.body;
     
@@ -114,15 +102,18 @@ router.post('/login', async (req, res) => {
     }
 
     // Find user
-    const user = users.find(u => 
-      u.email === userIdentifier || u.username === userIdentifier
+    const result = await client.query(
+      'SELECT id, username, email, password FROM users WHERE email = $1 OR username = $1',
+      [userIdentifier]
     );
 
-    if (!user) {
+    if (result.rows.length === 0) {
       return res.status(401).json({
         message: 'Credenciales incorrectas'
       });
     }
+
+    const user = result.rows[0];
 
     // Verify password
     const isValidPassword = await bcrypt.compare(password, user.password);
@@ -151,11 +142,15 @@ router.post('/login', async (req, res) => {
     res.status(500).json({
       message: 'Error interno del servidor'
     });
+  } finally {
+    client.release();
   }
 });
 
 // Verify token endpoint
-router.get('/verify', (req, res) => {
+router.get('/verify', async (req, res) => {
+  const client = await pool.connect();
+  
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     
@@ -164,11 +159,17 @@ router.get('/verify', (req, res) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret');
-    const user = users.find(u => u.id === decoded.id);
+    
+    const result = await client.query(
+      'SELECT id, username, email FROM users WHERE id = $1',
+      [decoded.id]
+    );
 
-    if (!user) {
+    if (result.rows.length === 0) {
       return res.status(401).json({ message: 'Usuario no encontrado' });
     }
+
+    const user = result.rows[0];
 
     res.json({
       valid: true,
@@ -184,13 +185,29 @@ router.get('/verify', (req, res) => {
       valid: false, 
       message: 'Token inválido' 
     });
+  } finally {
+    client.release();
   }
 });
 
 // Get all users (protected route example)
-router.get('/users', (req, res) => {
-  const publicUsers = users.map(({ password, ...user }) => user);
-  res.json(publicUsers);
+router.get('/users', async (req, res) => {
+  const client = await pool.connect();
+  
+  try {
+    const result = await client.query(
+      'SELECT id, username, email, role, created_at FROM users ORDER BY created_at DESC'
+    );
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Get users error:', error);
+    res.status(500).json({
+      message: 'Error al obtener usuarios'
+    });
+  } finally {
+    client.release();
+  }
 });
 
 module.exports = router;
