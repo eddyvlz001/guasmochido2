@@ -263,8 +263,9 @@ const ControlPanel = () => {
   };
 
   const getBatteryStatus = () => {
-    if (!latestMetrics) return 'Desconocido';
-    const battery = latestMetrics.battery_remaining_percent;
+    if (!latestMetrics || !latestMetrics.battery_remaining_percent) return 'Desconocido';
+    const battery = parseFloat(latestMetrics.battery_remaining_percent);
+    if (isNaN(battery)) return 'Desconocido';
     if (battery > 80) return 'Excelente';
     if (battery > 50) return 'Bueno';
     if (battery > 20) return 'Bajo';
@@ -272,8 +273,9 @@ const ControlPanel = () => {
   };
 
   const getBatteryColor = () => {
-    if (!latestMetrics) return '#666';
-    const battery = latestMetrics.battery_remaining_percent;
+    if (!latestMetrics || !latestMetrics.battery_remaining_percent) return '#666';
+    const battery = parseFloat(latestMetrics.battery_remaining_percent);
+    if (isNaN(battery)) return '#666';
     if (battery > 50) return '#28a745';
     if (battery > 20) return '#ffc107';
     return '#dc3545';
